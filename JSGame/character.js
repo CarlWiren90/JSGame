@@ -13,6 +13,7 @@ class Character {
     this.characterHeight = 40;
     this.color = "red";
     this.ctx = gameArea.getContext('2d');
+    this.shotY = this.locationY;
     
 
     }
@@ -47,12 +48,18 @@ class Character {
     playerShoot() {
         if (keyState.isShooting) {
             this.ctx.fillStyle = 'green';
-            for (let i = this.locationY ; i < gameArea.height ; i ++) {
-                this.ctx.fillRect(this.locationX + 20, i , 5, 5);
-            }
+                this.ctx.fillRect(this.locationX + 20, this.shotY, 5, 20);
 
+        }   
+    }
+
+    updateShotPosition() {
+        if (keyState.isShooting && this.shotY > 0) {
+            this.shotY -= 20;
         }
-        
+        if (this.shotY === 0 || keyState.isShooting === 'false') {
+            this.shotY = this.locationY;
+        }
     }
 }
 

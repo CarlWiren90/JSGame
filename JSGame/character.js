@@ -13,7 +13,9 @@ class Character {
     this.characterHeight = 40;
     this.color = "red";
     this.ctx = gameArea.getContext('2d');
-    this.shotY = this.locationY;
+    this.shotPathY = 0;
+    this.shotPathX = 0;
+
     
 
     }
@@ -48,17 +50,22 @@ class Character {
     playerShoot() {
         if (keyState.isShooting) {
             this.ctx.fillStyle = 'green';
-                this.ctx.fillRect(this.locationX + 20, this.shotY, 5, 20);
-
+                this.ctx.fillRect(this.locationX + 20, this.locationY - 30, 5, 20);
+                console.log(this.shotYStart);
+                console.log(this.shotXStart);
         }   
     }
-
+    /* 
+    Till imorgon. Iom att X-Y uppdateras under hela tiden som space hålls inne
+    så kommer ShotPathX och Y alltid vara samma som location X och Y.
+    Behöver ett sätt att playerShoot endast sparar nuvarande koordinater,
+    i två nya variabler och att updateShotPosition fortsätter med dessa för att göra så att
+    skotter fortsätter från var det avfyrades oavsett vart karaktären går.
+    */
     updateShotPosition() {
-        if (keyState.isShooting && this.shotY > 0) {
-            this.shotY -= 20;
-        }
-        if (this.shotY === 0 || keyState.isShooting === 'false') {
-            this.shotY = this.locationY;
+        this.shotPathX = this.locationX;
+    if (keyState.isShooting) {            
+        this.shotYStart -= 20;
         }
     }
 }

@@ -4,4 +4,5 @@ export const keyState = {
     aPressed: false,
     dPressed: false,
     isShooting: false,
+    isActiveShot: false,
 };

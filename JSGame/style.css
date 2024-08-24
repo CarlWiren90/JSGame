@@ -1,7 +1,7 @@
 body {
   display: flex;
   justify-content: center;
-  align-content: center;
+  align-items: center;
   padding: 0;
   height: 100vh;
   width: 100vw;
@@ -9,6 +9,10 @@ body {
 
 #gameArea {
   background-color: wheat;
-
+  height: 900px;
+  width: 900px;
   border: 4px black solid;
 }
+
+#gameArea:hover {
+  cursor: url(https://cur.cursors-4u.net/symbols/sym-6/sym580.cur), auto !important;} /* End https://www.cursors-4u.com */

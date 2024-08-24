@@ -33,7 +33,9 @@ keyDown = document.addEventListener("keydown", (e) => {
         console.log('pew pew');
     }
     if (e.key === 'r') {
-        keyState.isReloading = true;
+        setTimeout(() => {
+            keyState.isReloading = true;
+        }, 500);
     }
     console.log(`${e.key} down`)
 });  

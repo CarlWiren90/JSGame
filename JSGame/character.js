@@ -52,10 +52,14 @@ class Character {
 
 
     playerShoot() {
-        if (keyState.shotFired && this.shotCounter <= 10) {
+        if (keyState.shotFired && keyState.canShoot && this.shotCounter < 10) {
             let shot = new Shot(this.locationX, this.locationY, true);
             this.shots.push(shot);
             this.shotCounter++;
+            keyState.canShoot = false;
+            setTimeout(() => {
+                keyState.canShoot = true;
+            },250);
        }   
     }
 
@@ -66,21 +70,14 @@ class Character {
         }
     }
  
-    updateShotPosition() {
+    updateShotPosition() {  
         for (let i = 0; i < this.shots.length; i++) {
             if (this.shots[i].isActiveShot) {
-                this.shots[i].y -= 20;
+                this.shots[i].y -= 25;
                 this.ctx.fillStyle = 'green';
                 this.ctx.fillRect(this.shots[i].x + 20, this.shots[i].y - 10, 5, 20);
             }
         }
-/*     keyState.isActiveShot = true;
-    if (keyState.isActiveShot && this.shotPathY > 0) {            
-        this.shotPathY -= 25;
-            this.ctx.fillStyle = 'green';
-            this.ctx.fillRect(this.shotPathX + 20, this.shotPathY - 10, 5, 20);
-            keyState.isActiveShot = false;
-        } */
     }
 }
 

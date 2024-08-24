@@ -5,5 +5,6 @@ export const keyState = {
     dPressed: false,
     shotFired: false,
     isReloading: false,
+    canShoot: true,
 };
 

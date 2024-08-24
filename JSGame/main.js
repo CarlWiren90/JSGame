@@ -31,7 +31,9 @@ keyDown = document.addEventListener("keydown", (e) => {
     if (e.key === ' ') {
         keyState.shotFired = true;
         console.log('pew pew');
-
+    }
+    if (e.key === 'r') {
+        keyState.isReloading = true;
     }
     console.log(`${e.key} down`)
 });  
@@ -67,6 +69,7 @@ const GameLoop = () => {
     player1.clearCanvas();
     player1.playerMove();
     player1.playerShoot();
+    player1.reload();
     player1.updateShotPosition();
     player1.drawCharacter();
     requestAnimationFrame(GameLoop);

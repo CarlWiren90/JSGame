@@ -1,7 +1,6 @@
 'use strict';
 import { gameArea } from './main.js';
 import { keyState } from './globalState.js';
-import { shots } from './globalState.js';
 
 class Character {
     constructor (name, race, weapon) {
@@ -18,6 +17,8 @@ class Character {
     this.shotStartY = 0;
     this.shotPathY = 0;
     this.shotPathX = 0;
+    this.shots = [];
+    this.shotCounter = 0;
 
     }
     sayHello() {
@@ -48,25 +49,29 @@ class Character {
         }
     }
 
-    shot(x, y) {
-        this.x = x;
-        this.y = y;
-        this.isActiveShot = true;
-    }
+
 
     playerShoot() {
-        if (keyState.shotFired) {
-            keyState.shots.push(new this.shot(this.locationX, this.locationY));
-            console.log(keyState.shots[i]);
+        if (keyState.shotFired && this.shotCounter <= 10) {
+            let shot = new Shot(this.locationX, this.locationY, true);
+            this.shots.push(shot);
+            this.shotCounter++;
        }   
+    }
+
+    reload() {
+        if (keyState.isReloading) {
+            this.shotCounter = 0;
+            keyState.isReloading = false;
+        }
     }
  
     updateShotPosition() {
-        for (let i = 0; i < keyState.shots.length; i++) {
-            if (keyState.shots[i].isActiveShot) {
-                keyState.shots[i].y -= 25;
+        for (let i = 0; i < this.shots.length; i++) {
+            if (this.shots[i].isActiveShot) {
+                this.shots[i].y -= 20;
                 this.ctx.fillStyle = 'green';
-                this.ctx.fillRect(keyState.shots[i].x + 20, keyState.shots[i].y - 10, 5, 20);
+                this.ctx.fillRect(this.shots[i].x + 20, this.shots[i].y - 10, 5, 20);
             }
         }
 /*     keyState.isActiveShot = true;
@@ -76,6 +81,14 @@ class Character {
             this.ctx.fillRect(this.shotPathX + 20, this.shotPathY - 10, 5, 20);
             keyState.isActiveShot = false;
         } */
+    }
+}
+
+class Shot {
+    constructor(x, y, isActiveShot) {
+        this.x = x;
+        this.y = y;
+        this.isActiveShot = isActiveShot;
     }
 }
 

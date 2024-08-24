@@ -4,6 +4,6 @@ export const keyState = {
     aPressed: false,
     dPressed: false,
     shotFired: false,
+    isReloading: false,
 };
 
-export let shots = [];

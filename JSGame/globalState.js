@@ -3,6 +3,6 @@ export const keyState = {
     sPressed: false,
     aPressed: false,
     dPressed: false,
-    isShooting: false,
+    shotFired: false,
     isActiveShot: false,
 };

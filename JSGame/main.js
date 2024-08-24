@@ -29,9 +29,8 @@ keyDown = document.addEventListener("keydown", (e) => {
         keyState.dPressed = true;
     }
     if (e.key === ' ') {
-        keyState.isShooting = true;
+        keyState.shotFired = true;
         console.log('pew pew');
-
     }
     console.log(`${e.key} down`)
 });  
@@ -51,7 +50,7 @@ keyUp = document.addEventListener("keyup", (e) => {
         keyState.dPressed = false;
     }
     if (e.key === ' ') {
-        keyState.isShooting = false;
+        keyState.shotFired = false;
     }
     console.log(`${e.key} up`)
 });

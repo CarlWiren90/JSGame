@@ -1,6 +1,8 @@
 'use strict';
 import { gameArea } from './main.js';
 import { keyState } from './globalState.js';
+import { mouseState } from './globalState.js';
+
 
 class Character {
     constructor (name, race, weapon) {
@@ -52,7 +54,19 @@ class Character {
 
 
     playerShoot() {
-        if (keyState.shotFired && keyState.canShoot && this.shotCounter < 10) {
+          if (keyState.shotFired && keyState.canShoot && this.shotCounter < 10) {
+            let shot = new Shot(this.locationX, this.locationY, true);
+            this.shots.push(shot);
+            this.shotCounter++;
+            keyState.canShoot = false;
+            console.log('shot fired!');
+            console.log(`shot fired from coordinates: ${mouseState.mouseX} and ${mouseState.mouseY}`);
+            
+            setTimeout(() => {
+                keyState.canShoot = true;
+            },250);
+       }   
+      /*   if (keyState.shotFired && keyState.canShoot && this.shotCounter < 10) {
             let shot = new Shot(this.locationX, this.locationY, true);
             this.shots.push(shot);
             this.shotCounter++;
@@ -60,7 +74,7 @@ class Character {
             setTimeout(() => {
                 keyState.canShoot = true;
             },250);
-       }   
+       }    */
     }
 
     reload() {

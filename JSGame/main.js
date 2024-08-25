@@ -8,7 +8,7 @@ const gameArea = document.createElement("canvas");
 gameArea.id = 'gameArea';
 gameArea.height = 900;
 gameArea.width = 900;
-document.body.appendChild(gameArea);
+game.appendChild(gameArea);
 
 //Directions
 let keyDown;
@@ -30,14 +30,12 @@ keyDown = document.addEventListener("keydown", (e) => {
     }
     if (e.key === ' ') {
         keyState.shotFired = true;
-        console.log('pew pew');
     }
     if (e.key === 'r') {
         setTimeout(() => {
             keyState.isReloading = true;
         }, 500);
     }
-    console.log(`${e.key} down`)
 });  
 
 
@@ -57,7 +55,6 @@ keyUp = document.addEventListener("keyup", (e) => {
     if (e.key === ' ') {
         keyState.shotFired = false;
     }
-    console.log(`${e.key} up`)
 });
 
 

@@ -8,3 +8,7 @@ export const keyState = {
     canShoot: true,
 };
 
+export const mouseState = {
+    mouseY: 0,
+    mouseX: 0,
+}

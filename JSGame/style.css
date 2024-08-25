@@ -7,6 +7,11 @@ body {
   width: 100vw;
 }
 
+#game {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+}
 #gameArea {
   background-color: wheat;
   height: 900px;

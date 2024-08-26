@@ -2,6 +2,7 @@
 import { gameArea } from './main.js';
 import { keyState } from './globalState.js';
 import { mouseState } from './globalState.js';
+import { ctx } from './main.js';
 
 
 class Character {
@@ -14,8 +15,8 @@ class Character {
     this.characterWidth = 40;
     this.characterHeight = 40;
     this.color = "red";
-    this.ctx = gameArea.getContext('2d');
-    this.shotStartX = 0;
+/*     this.ctx = gameArea.getContext('2d');
+ */    this.shotStartX = 0;
     this.shotStartY = 0;
     this.shotPathY = 0;
     this.shotPathX = 0;
@@ -28,12 +29,8 @@ class Character {
     }
 
     drawCharacter() {
-        this.ctx.fillStyle = this.color;
-        this.ctx.fillRect(this.locationX, this.locationY, this.characterWidth, this.characterHeight);
-    }
-
-    clearCanvas() {
-        this.ctx.clearRect(0,0, 1000, 1000);
+        ctx.fillStyle = this.color;
+        ctx.fillRect(this.locationX, this.locationY, this.characterWidth, this.characterHeight);
     }
 
     playerMove() {
@@ -60,21 +57,12 @@ class Character {
             this.shotCounter++;
             keyState.canShoot = false;
             console.log('shot fired!');
-            console.log(`shot fired from coordinates: ${mouseState.mouseX} and ${mouseState.mouseY}`);
+            console.log(`shot fired from ${this.locationX} and ${this.locationY} towards coordinates: ${mouseState.mouseX} and ${mouseState.mouseY}`);
             
             setTimeout(() => {
                 keyState.canShoot = true;
             },250);
        }   
-      /*   if (keyState.shotFired && keyState.canShoot && this.shotCounter < 10) {
-            let shot = new Shot(this.locationX, this.locationY, true);
-            this.shots.push(shot);
-            this.shotCounter++;
-            keyState.canShoot = false;
-            setTimeout(() => {
-                keyState.canShoot = true;
-            },250);
-       }    */
     }
 
     reload() {
@@ -87,18 +75,18 @@ class Character {
     updateShotPosition() {  
         for (let i = 0; i < this.shots.length; i++) {
             if (this.shots[i].isActiveShot) {
-                this.shots[i].y -= 25;
-                this.ctx.fillStyle = 'green';
-                this.ctx.fillRect(this.shots[i].x + 20, this.shots[i].y - 10, 5, 20);
+                this.shots[i].y -= 25;     
+                ctx.fillStyle = 'green';
+                ctx.fillRect(this.shots[i].x + 20, this.shots[i].y - 10, 5, 20);
             }
         }
     }
 }
 
 class Shot {
-    constructor(x, y, isActiveShot) {
-        this.x = x;
-        this.y = y;
+    constructor(startX, startY, isActiveShot) {
+        this.x = startX;
+        this.y = startY;
         this.isActiveShot = isActiveShot;
     }
 }

@@ -9,11 +9,16 @@ gameArea.id = 'gameArea';
 gameArea.height = 900;
 gameArea.width = 900;
 game.appendChild(gameArea);
+const ctx = gameArea.getContext('2d');
+
 
 //Directions
 let keyDown;
 let keyUp;
 
+const clearCanvas = () => {
+    ctx.clearRect(0,0, 1000, 1000);
+}
 //Eventlisteners for keydown movement
 keyDown = document.addEventListener("keydown", (e) => {
     if (e.key === 'w') {
@@ -65,7 +70,7 @@ player1.sayHello();
 
 
 const GameLoop = () => {
-    player1.clearCanvas();
+    clearCanvas();
     player1.playerMove();
     player1.playerShoot();
     player1.reload();
@@ -77,7 +82,7 @@ const GameLoop = () => {
 GameLoop();
 
 export { gameArea };
-
+export { ctx }; 
 
 
 

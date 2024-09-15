@@ -58,7 +58,7 @@ class Character {
             setTimeout(() => {
                 keyState.canShoot = true;
             },250);
-       }   
+        }   
     }
 
     reload() {
@@ -71,48 +71,56 @@ class Character {
  
     updateShotPosition() { 
         for (let i = 0; i < this.shots.length; i++) {
-            if (this.shots[i].isActiveShot) {                   
-      // Current position of the shot
-      let startX = this.shots[i].startX;
-      let startY = this.shots[i].startY;
+            if (this.shots[i].isActiveShot) {
+                // Current position of the shot
+                let startX = this.shots[i].startX;
+                let startY = this.shots[i].startY;
       
-      // Target position (assuming you have endX and endY as the target coordinates)
-      let endX = this.shots[i].endX;
-      let endY = this.shots[i].endY;
+                // Target position (assuming you have endX and endY as the target coordinates)
+                let endX = this.shots[i].endX;
+                let endY = this.shots[i].endY;
 
-      // Calculate delta (difference between current position and target)
-      let deltaX = endX - startX;
-      let deltaY = endY - startY;
+                // Calculate delta (difference between current position and target)
+                let deltaX = endX - startX;
+                let deltaY = endY - startY;
 
-      // Calculate the distance to the target
-      let distance = Math.sqrt(deltaX**2 + deltaY**2);
+                // Calculate the distance to the target
+                let distance = Math.sqrt(deltaX**2 + deltaY**2);
 
-      // Normalize the direction vector
-      let directionX = deltaX / distance;
-      let directionY = deltaY / distance;
+                // Normalize the direction vector
+                let directionX = deltaX / distance;
+                let directionY = deltaY / distance;
 
-      // Scale by shot speed to get movement per frame
-      let moveX = directionX * this.shotSpeed;
-      let moveY = directionY * this.shotSpeed;
+                // Scale by shot speed to get movement per frame
+                let moveX = directionX * this.shotSpeed;
+                let moveY = directionY * this.shotSpeed;
 
-      // Update the shot's position
-      this.shots[i].startX += moveX;
-      this.shots[i].startY += moveY;  
-    
-      if (this.shots[i].startX === mouseState.mouseX) {
-        console.log('hello');
-        this.shots[i].isActiveShot = false;
-      }
-      else {
-        ctx.fillStyle = 'green';          
-        ctx.fillRect(this.shots[i].startX + 20, this.shots[i].startY - 10, 5, 5); 
-      }
-        
 
-      console.log(this.shots[i].isActiveShot)
-    }   
-                
-                
+            // Check if the next movement would overshoot the target
+            if (distance <= this.shotSpeed) {
+                // Snap to the target to prevent overshooting
+                this.shots[i].startX = endX;
+                this.shots[i].startY = endY;
+            } else {
+                // Update the shot's position
+                this.shots[i].startX += moveX;
+                this.shots[i].startY += moveY;  
+            }
+            
+                //Render
+                let renderX = Math.round(this.shots[i].startX);
+                let renderY = Math.round(this.shots[i].startY);
+
+           /*      if (renderX === endX) {
+                    this.shots[i].isActiveShot = false;
+                }
+                else {  */    
+                    //Paints new shot at new positon
+                    ctx.fillStyle = 'green';          
+                    ctx.fillRect(renderX, renderY, 5, 5);    
+                /* } */
+                        
+                }                
             }
         }     
     }

@@ -84,5 +84,6 @@ GameLoop();
 export { gameArea };
 export { ctx }; 
 export default clearCanvas;
+export {player1};
 
 

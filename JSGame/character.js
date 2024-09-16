@@ -18,7 +18,6 @@ class Character {
     this.color = "red";
     this.shots = [];
     this.shotCounter = 0;
-    this.shotSpeed = 25;
     
 
     }
@@ -49,6 +48,7 @@ class Character {
     playerShoot() {
           if (keyState.shotFired && keyState.canShoot && this.shotCounter < 10) {
             let shot = new Shot(this.locationX, this.locationY, mouseState.mouseX, mouseState.mouseY, true);
+            shot.calculateShot();
             this.shots.push(shot);
             this.shotCounter++;
             keyState.canShoot = false;
@@ -72,54 +72,23 @@ class Character {
     updateShotPosition() { 
         for (let i = 0; i < this.shots.length; i++) {
             if (this.shots[i].isActiveShot) {
-                // Current position of the shot
-                let startX = this.shots[i].startX;
-                let startY = this.shots[i].startY;
-      
-                // Target position (assuming you have endX and endY as the target coordinates)
-                let endX = this.shots[i].endX;
-                let endY = this.shots[i].endY;
-
-                // Calculate delta (difference between current position and target)
-                let deltaX = endX - startX;
-                let deltaY = endY - startY;
-
-                // Calculate the distance to the target
-                let distance = Math.sqrt(deltaX**2 + deltaY**2);
-
-                // Normalize the direction vector
-                let directionX = deltaX / distance;
-                let directionY = deltaY / distance;
-
                 // Scale by shot speed to get movement per frame
-                let moveX = directionX * this.shotSpeed;
-                let moveY = directionY * this.shotSpeed;
-
-
-            // Check if the next movement would overshoot the target
-            if (distance <= this.shotSpeed) {
-                // Snap to the target to prevent overshooting
-                this.shots[i].startX = endX;
-                this.shots[i].startY = endY;
-            } else {
+                let moveX = this.shots[i].directionX * this.shots[i].shotSpeed;
+                let moveY = this.shots[i].directionY * this.shots[i].shotSpeed;
+        
                 // Update the shot's position
                 this.shots[i].startX += moveX;
                 this.shots[i].startY += moveY;  
-            }
             
-                //Render
+                //Round float before render
                 let renderX = Math.round(this.shots[i].startX);
                 let renderY = Math.round(this.shots[i].startY);
+/*                 console.log(renderY);
+ */                
+                this.shots[i].shotCollision(renderX, renderY);
 
-           /*      if (renderX === endX) {
-                    this.shots[i].isActiveShot = false;
-                }
-                else {  */    
-                    //Paints new shot at new positon
-                    ctx.fillStyle = 'green';          
-                    ctx.fillRect(renderX, renderY, 5, 5);    
-                /* } */
-                        
+                ctx.fillStyle = 'green';          
+                ctx.fillRect(renderX, renderY, 5, 5);   
                 }                
             }
         }     
@@ -133,6 +102,28 @@ class Shot {
         this.endX = endX;
         this.endY = endY;
         this.isActiveShot = isActiveShot;
+        this.shotSpeed = 25;
+        this.directionX = 0;
+        this.directionY = 0;
+        this.shotCollided = false;
+    }
+
+    calculateShot() {
+        let deltaX = this.endX - this.startX;
+        let deltaY = this.endY - this.startY;
+
+        let distance = Math.sqrt(deltaX**2 + deltaY**2);
+    
+        this.directionX = deltaX / distance;
+        this.directionY = deltaY / distance;
+    }
+
+    shotCollision(renderX, renderY) {
+        if (renderX >= gameArea.width || renderY >= gameArea.height || renderX === 0 || renderY === 0) {
+            this.isActiveShot = false;
+            console.log(this.isActiveShot)
+ 
+        }
     }
 }
 

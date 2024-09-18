@@ -4,6 +4,7 @@ import clearCanvas from './main.js';
 import { keyState } from './globalState.js';
 import { mouseState } from './globalState.js';
 import { ctx } from './main.js';
+import './character.css';
 
 
 class Character {
@@ -13,8 +14,8 @@ class Character {
     this.weapon = weapon;
     this.locationX = 20;
     this.locationY = 800;
-    this.characterWidth = 40;
-    this.characterHeight = 40;
+    this.characterWidth = 70;
+    this.characterHeight = 70;
     this.color = "red";
     this.shots = [];
     this.shotCounter = 0;
@@ -26,8 +27,15 @@ class Character {
     }
 
     drawCharacter() {
-        ctx.fillStyle = this.color;
-        ctx.fillRect(this.locationX, this.locationY, this.characterWidth, this.characterHeight);
+        let playerIcon = new Image();
+        playerIcon.src = "./player2.png";
+        ctx.drawImage(playerIcon, this.locationX, this.locationY, this.characterWidth, this.characterHeight);
+    }
+
+    createPlayerIcon() {
+        let playerIcon = document.createElement("img");
+        playerIcon.id = 'playerIcon';
+        game.appendChild(playerIcon);
     }
 
     playerMove() {

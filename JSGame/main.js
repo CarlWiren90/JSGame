@@ -1,7 +1,8 @@
 'use strict';
 import "./style.css";
-import Character from './character.js';
 import { keyState } from "./globalState.js";
+import Character from "./character.js";
+import Shot from './shot.js'
 
 //Game Area
 const gameArea = document.createElement("canvas");
@@ -74,7 +75,7 @@ const GameLoop = () => {
     player1.playerMove();
     player1.playerShoot();
     player1.reload();
-    player1.updateShotPosition();
+    Shot.updateShotPosition();
     player1.drawCharacter();
     requestAnimationFrame(GameLoop);
 }

@@ -1,10 +1,10 @@
 'use strict';
 import { gameArea } from './main.js';
-import clearCanvas from './main.js';
 import { keyState } from './globalState.js';
 import { mouseState } from './globalState.js';
 import { ctx } from './main.js';
 import './character.css';
+import Shot from './shot.js';
 
 
 class Character {
@@ -17,8 +17,9 @@ class Character {
     this.characterWidth = 70;
     this.characterHeight = 70;
     this.color = "red";
-    this.shots = [];
     this.shotCounter = 0;
+    this.shots = []
+
     
 
     }
@@ -28,7 +29,7 @@ class Character {
 
     drawCharacter() {
         let playerIcon = new Image();
-        playerIcon.src = "./player2.png";
+        playerIcon.src = "./player1.png";
         ctx.drawImage(playerIcon, this.locationX, this.locationY, this.characterWidth, this.characterHeight);
     }
 
@@ -74,63 +75,7 @@ class Character {
             this.shotCounter = 0;
             keyState.isReloading = false;
             this.shots = [];
-        }
-    }
- 
-    updateShotPosition() { 
-        for (let i = 0; i < this.shots.length; i++) {
-            if (this.shots[i].isActiveShot) {
-                // Scale by shot speed to get movement per frame
-                let moveX = this.shots[i].directionX * this.shots[i].shotSpeed;
-                let moveY = this.shots[i].directionY * this.shots[i].shotSpeed;
-        
-                // Update the shot's position
-                this.shots[i].startX += moveX;
-                this.shots[i].startY += moveY;  
-            
-                //Round float before render
-                let renderX = Math.round(this.shots[i].startX);
-                let renderY = Math.round(this.shots[i].startY);
-/*                 console.log(renderY);
- */                
-                this.shots[i].shotCollision(renderX, renderY);
-
-                ctx.fillStyle = 'green';          
-                ctx.fillRect(renderX, renderY, 5, 5);   
-                }                
-            }
-        }     
-    }
-
-
-class Shot {
-    constructor(startX, startY, endX, endY, isActiveShot) {
-        this.startX = startX;
-        this.startY = startY;
-        this.endX = endX;
-        this.endY = endY;
-        this.isActiveShot = isActiveShot;
-        this.shotSpeed = 25;
-        this.directionX = 0;
-        this.directionY = 0;
-        this.shotCollided = false;
-    }
-
-    calculateShot() {
-        let deltaX = this.endX - this.startX;
-        let deltaY = this.endY - this.startY;
-
-        let distance = Math.sqrt(deltaX**2 + deltaY**2);
-    
-        this.directionX = deltaX / distance;
-        this.directionY = deltaY / distance;
-    }
-
-    shotCollision(renderX, renderY) {
-        if (renderX >= gameArea.width || renderY >= gameArea.height || renderX === 0 || renderY === 0) {
-            this.isActiveShot = false;
-            console.log(this.isActiveShot)
- 
+            Shot.i = 0;
         }
     }
 }

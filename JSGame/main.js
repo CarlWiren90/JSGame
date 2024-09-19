@@ -3,8 +3,12 @@ import "./style.css";
 import { keyState } from "./globalState.js";
 import Character from "./character.js";
 import Shot from './shot.js'
+import renderUI from "./playerUI.js";
 
-//Game Area
+//Render UI
+renderUI();
+
+//Render game Area
 const gameArea = document.createElement("canvas");
 gameArea.id = 'gameArea';
 gameArea.height = 900;
@@ -65,8 +69,11 @@ keyUp = document.addEventListener("keyup", (e) => {
 
 
 //Created character
-const player1 = new Character('Calle', 'Space Marine', 'M1 Garand');
+const player1 = new Character(true, 'Calle', 'Space Marine', 'M1 Garand', 20, 800);
+const player2 = new Character(false, 'Rasmus', 'German', 'Mauser', 825, 50);
+
 player1.sayHello();
+player2.sayHello();
 
 
 
@@ -77,6 +84,11 @@ const GameLoop = () => {
     player1.reload();
     Shot.updateShotPosition();
     player1.drawCharacter();
+    player2.drawHitBox();
+/*     player2.playerMove();
+    player2.playerShoot();
+    player2.reload(); */
+    player2.drawCharacter();
     requestAnimationFrame(GameLoop);
 }
 

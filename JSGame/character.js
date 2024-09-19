@@ -8,19 +8,23 @@ import Shot from './shot.js';
 
 
 class Character {
-    constructor (name, race, weapon) {
+    constructor (player1, name, race, weapon, startLocationX, startLocationY) {
+    this.player1 = player1;
     this.name = name;
     this.race = race;
     this.weapon = weapon;
-    this.locationX = 20;
-    this.locationY = 800;
+    this.locationX = startLocationX;
+    this.locationY = startLocationY;
+/*     this.locationX = 20;
+    this.locationY = 800; */
     this.characterWidth = 70;
     this.characterHeight = 70;
     this.color = "red";
     this.shotCounter = 0;
     this.shots = []
-
-    
+    this.playerLives = 3;
+    this.hitboxWidth = 30;
+    this.hitboxHeight = 60;
 
     }
     sayHello() {
@@ -29,8 +33,19 @@ class Character {
 
     drawCharacter() {
         let playerIcon = new Image();
-        playerIcon.src = "./player1.png";
+        if (this.player1) {
+            playerIcon.src = "./player1.png";
+        }
+        else {
+            playerIcon.src = "./player2.png";
+
+        }
         ctx.drawImage(playerIcon, this.locationX, this.locationY, this.characterWidth, this.characterHeight);
+    }
+
+    drawHitBox() {
+        ctx.fillStyle = 'green';
+        ctx.fillRect(this.locationX + 15, this.locationY + 5, this.hitboxWidth, this.hitboxHeight);
     }
 
     createPlayerIcon() {

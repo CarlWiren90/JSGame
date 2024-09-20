@@ -1,9 +1,11 @@
 import './playerUI.css';
 import { player1 } from './main';
 
+let UIArea;
+
 const renderUI = () => {
     //Render UI-area
-    let UIArea = document.createElement('div');
+    UIArea = document.createElement('div');
     UIArea.className = 'playerUI';
     document.body.appendChild(UIArea);
 
@@ -14,4 +16,19 @@ const renderUI = () => {
     player1Lives.innerHTML = 'Player 1 lives:'
 }
 
+const renderPlayerLives = () => {
+    let heartImage = new Image();
+    heartImage.src = './heart.png';
+    heartImage.id = 'heartImage';
+    for (let i = 0 ; i <= player1.playerLives ; i++) {
+        let heartContainer = document.createElement('img');
+        heartContainer.className = 'heartContainer';
+        UIArea.appendChild(heartContainer);
+        heartContainer.appendChild(heartImage);
+    }
+}
+
+
+
 export default renderUI;
+export {renderPlayerLives};

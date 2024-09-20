@@ -4,6 +4,7 @@ import { keyState } from "./globalState.js";
 import Character from "./character.js";
 import Shot from './shot.js'
 import renderUI from "./playerUI.js";
+import { renderPlayerLives } from "./playerUI.js";
 
 //Render UI
 renderUI();
@@ -79,18 +80,20 @@ player2.sayHello();
 
 const GameLoop = () => {
     clearCanvas();
+    
     player1.playerMove();
     player1.playerShoot();
     player1.reload();
     Shot.updateShotPosition();
     player1.drawCharacter();
     player2.drawHitBox();
-/*     player2.playerMove();
+/*  player2.playerMove();
     player2.playerShoot();
     player2.reload(); */
     player2.drawCharacter();
     requestAnimationFrame(GameLoop);
 }
+renderPlayerLives();
 
 GameLoop();
 

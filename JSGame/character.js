@@ -22,7 +22,7 @@ class Character {
     this.color = "red";
     this.shotCounter = 0;
     this.shots = []
-    this.playerLives = 3;
+    this.playerLives = 2;
     this.hitboxWidth = 30;
     this.hitboxHeight = 60;
 
@@ -81,7 +81,7 @@ class Character {
 
             setTimeout(() => {
                 keyState.canShoot = true;
-            },250);
+            },50);
         }   
     }
 

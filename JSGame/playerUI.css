@@ -11,4 +11,15 @@
     color: white;
     font-size: 40px;
     margin-top: 50px;
+    font-family: 'Pixelify Sans';
+}
+
+.heartContainer {
+    width: 50%;
+    height: 100px;
+}
+
+#heartImage {
+    height: 50px;
+    width: 50px;
 }

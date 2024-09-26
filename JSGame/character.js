@@ -15,16 +15,14 @@ class Character {
     this.weapon = weapon;
     this.locationX = startLocationX;
     this.locationY = startLocationY;
-/*     this.locationX = 20;
-    this.locationY = 800; */
     this.characterWidth = 70;
     this.characterHeight = 70;
     this.color = "red";
     this.shotCounter = 0;
     this.shots = []
-    this.playerLives = 2;
-    this.hitboxWidth = 30;
-    this.hitboxHeight = 60;
+    this.playerLives = 3;
+/*     this.hitboxWidth = 30;
+    this.hitboxHeight = 60; */
 
     }
     sayHello() {
@@ -56,16 +54,16 @@ class Character {
 
     playerMove() {
         if (keyState.wPressed && this.locationY > 1) {
-            this.locationY -= 7;
+            this.locationY -= 5;
         }
         if (keyState.sPressed && this.locationY + this.characterHeight < gameArea.height) {
-            this.locationY += 7;
+            this.locationY += 5;
         }
         if (keyState.aPressed && this.locationX > 0 ) {
-            this.locationX -= 7;
+            this.locationX -= 5;
         }
         if (keyState.dPressed && this.locationX + this.characterWidth < gameArea.width) {
-            this.locationX += 7;   
+            this.locationX += 5;   
         }
     }
 

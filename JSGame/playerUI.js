@@ -20,7 +20,17 @@ const renderUI = () => {
     UIArea.appendChild(livesContainer);
 
 
-    //Create ammonition rendering here.
+    //Create weapon rendering here.
+    let weaponContainer = document.createElement('div');
+    weaponContainer.className = 'weaponContainer';
+    weaponContainer.innerHTML = 'Weapon:'
+    UIArea.appendChild(weaponContainer);
+    let weaponAK47Image = new Image();
+    weaponAK47Image.src = './AK47.png'
+    weaponAK47Image.id = 'AK47';
+    weaponContainer.appendChild(weaponAK47Image);
+
+    //Create ammunition rendering here.
 }
 
 const renderPlayerLives = () => {

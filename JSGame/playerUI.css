@@ -35,3 +35,21 @@
     width: 75%;
     height: 75px;
 }
+
+.weaponContainer {
+    color: white;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 40px;
+    font-family: 'Pixelify Sans';
+    width: 100%;
+    height: 150px;
+}
+
+#AK47 {
+    width: 300px;
+    height: 200px;
+    margin-left: 35px;
+}

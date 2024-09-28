@@ -3,8 +3,7 @@ import "./style.css";
 import { keyState } from "./globalState.js";
 import Character from "./character.js";
 import Shot from './shot.js'
-import renderUI from "./playerUI.js";
-import { renderPlayerLives } from "./playerUI.js";
+import renderUI, { renderWeaponBullets, renderPlayerLives } from "./playerUI.js";
 
 //Render UI
 renderUI();
@@ -80,7 +79,6 @@ player2.sayHello();
 
 const GameLoop = () => {
     clearCanvas();
-    
     player1.playerMove();
     player1.playerShoot();
     player1.reload();
@@ -93,8 +91,9 @@ const GameLoop = () => {
     player2.drawCharacter();
     requestAnimationFrame(GameLoop);
 }
-renderPlayerLives();
 
+renderWeaponBullets();
+renderPlayerLives();
 GameLoop();
 
 export { gameArea };

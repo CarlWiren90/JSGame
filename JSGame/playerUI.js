@@ -3,6 +3,7 @@ import { player1 } from './main';
 
 let UIArea;
 let livesContainer;
+let bulletContainer
 
 const renderUI = () => {
     //Render UI-area
@@ -10,7 +11,7 @@ const renderUI = () => {
     UIArea.className = 'playerUI';
     document.body.appendChild(UIArea);
 
-    //Render UI-component player lives
+    //Render UI-component player lives container
     let player1Lives = document.createElement('div');
     player1Lives.className = 'player1Lives';
     UIArea.appendChild(player1Lives);
@@ -19,8 +20,7 @@ const renderUI = () => {
     livesContainer.className = 'livesContainer';
     UIArea.appendChild(livesContainer);
 
-
-    //Create weapon rendering here.
+    //Weapon rendering and container
     let weaponContainer = document.createElement('div');
     weaponContainer.className = 'weaponContainer';
     weaponContainer.innerHTML = 'Weapon:'
@@ -30,7 +30,15 @@ const renderUI = () => {
     weaponAK47Image.id = 'AK47';
     weaponContainer.appendChild(weaponAK47Image);
 
-    //Create ammunition rendering here.
+
+    //Ammunition container rendering
+    let ammoContainer = document.createElement('div');
+    ammoContainer.className = 'ammoContainer';
+    ammoContainer.innerHTML = 'Ammo:'
+    UIArea.appendChild(ammoContainer);
+    bulletContainer = document.createElement('div');
+    bulletContainer.className = 'bulletContainer';
+    ammoContainer.appendChild(bulletContainer);
 }
 
 const renderPlayerLives = () => {
@@ -46,7 +54,20 @@ const renderPlayerLives = () => {
     }
 }
 
+const renderWeaponBullets = () => {
+    bulletContainer.innerHTML = '';
+        for (let i = player1.shotCounter ; i != 0 ; i--) {
+            let bulletImg = new Image();
+            bulletImg.src = './bullet.png';
+            bulletImg.id = 'bulletImg';
+            bulletContainer.appendChild(bulletImg);
+            console.log('new bullets rendered');
+        }
+}
+
+
 
 
 export default renderUI;
 export {renderPlayerLives};
+export {renderWeaponBullets};

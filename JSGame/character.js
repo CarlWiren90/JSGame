@@ -5,6 +5,7 @@ import { mouseState } from './globalState.js';
 import { ctx } from './main.js';
 import './character.css';
 import Shot from './shot.js';
+import renderUI, { renderWeaponBullets } from './playerUI.js';
 
 
 class Character {
@@ -18,7 +19,7 @@ class Character {
     this.characterWidth = 70;
     this.characterHeight = 70;
     this.color = "red";
-    this.shotCounter = 0;
+    this.shotCounter = 30;
     this.shots = []
     this.playerLives = 3;
 /*     this.hitboxWidth = 30;
@@ -36,7 +37,6 @@ class Character {
         }
         else {
             playerIcon.src = "./player2.png";
-
         }
         ctx.drawImage(playerIcon, this.locationX, this.locationY, this.characterWidth, this.characterHeight);
     }
@@ -68,15 +68,16 @@ class Character {
     }
 
     playerShoot() {
-          if (keyState.shotFired && keyState.canShoot && this.shotCounter < 10) {
+          if (keyState.shotFired && keyState.canShoot && this.shotCounter > 0) {
             let shot = new Shot(this.locationX, this.locationY, mouseState.mouseX, mouseState.mouseY, true);
             shot.calculateShot();
             this.shots.push(shot);
-            this.shotCounter++;
+            this.shotCounter--;
             keyState.canShoot = false;
-            console.log(`shot fired from ${this.locationX} and ${this.locationY} towards coordinates: ${mouseState.mouseX} and ${mouseState.mouseY}`);
-            console.log(this.shots)
-
+ //*             console.log(`shot fired from ${this.locationX} and ${this.locationY} towards coordinates: ${mouseState.mouseX} and ${mouseState.mouseY}`);
+            /* console.log(this.shots) */
+            console.log(this.shotCounter)
+            renderWeaponBullets();
             setTimeout(() => {
                 keyState.canShoot = true;
             },50);
@@ -85,10 +86,18 @@ class Character {
 
     reload() {
         if (keyState.isReloading) {
-            this.shotCounter = 0;
+     /*        let reloadText = document.createElement('div');
+            reloadText.id = 'reloadText';
+            reloadText.innerHTML = 'Reload!';
+            reloadText.style.position ='absolute';
+            reloadText.style.left = this.locationX;
+            reloadText.style.top = this.locationY; */
+            this.shotCounter = 30;
             keyState.isReloading = false;
             this.shots = [];
             Shot.i = 0;
+            console.log('Reloaded!');
+            renderWeaponBullets();
         }
     }
 }

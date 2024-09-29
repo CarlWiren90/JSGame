@@ -61,12 +61,8 @@ const renderWeaponBullets = () => {
             bulletImg.src = './bullet.png';
             bulletImg.id = 'bulletImg';
             bulletContainer.appendChild(bulletImg);
-            console.log('new bullets rendered');
         }
 }
-
-
-
 
 export default renderUI;
 export {renderPlayerLives};

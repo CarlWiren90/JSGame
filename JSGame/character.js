@@ -22,8 +22,8 @@ class Character {
     this.shotCounter = 30;
     this.shots = []
     this.playerLives = 3;
-/*     this.hitboxWidth = 30;
-    this.hitboxHeight = 60; */
+    this.hitboxWidth = 30;
+    this.hitboxHeight = 60;
 
     }
     sayHello() {
@@ -41,10 +41,10 @@ class Character {
         ctx.drawImage(playerIcon, this.locationX, this.locationY, this.characterWidth, this.characterHeight);
     }
 
-    drawHitBox() {
+/*     drawHitBox() {
         ctx.fillStyle = 'green';
         ctx.fillRect(this.locationX + 15, this.locationY + 5, this.hitboxWidth, this.hitboxHeight);
-    }
+    } */
 
     createPlayerIcon() {
         let playerIcon = document.createElement("img");
@@ -74,13 +74,10 @@ class Character {
             this.shots.push(shot);
             this.shotCounter--;
             keyState.canShoot = false;
- //*             console.log(`shot fired from ${this.locationX} and ${this.locationY} towards coordinates: ${mouseState.mouseX} and ${mouseState.mouseY}`);
-            /* console.log(this.shots) */
-            console.log(this.shotCounter)
             renderWeaponBullets();
             setTimeout(() => {
                 keyState.canShoot = true;
-            },50);
+            },500);
         }   
     }
 

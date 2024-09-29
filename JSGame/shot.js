@@ -1,5 +1,7 @@
 import { player1 } from "./main";
 import { ctx } from "./main";
+import { shotCollision } from './collisions.js';
+
 
 class Shot {
     constructor(startX, startY, endX, endY, isActiveShot) {
@@ -13,6 +15,8 @@ class Shot {
         this.directionY = 0;
         this.shotCollided = false;
         this.i = 0;
+        this.shotWidth = 5;
+        this.shotHeight = 5;
     }
 
     calculateShot() {
@@ -40,21 +44,13 @@ class Shot {
                 let renderX = Math.round(player1.shots[this.i].startX);
                 let renderY = Math.round(player1.shots[this.i].startY);
           
-                player1.shots[this.i].shotCollision(renderX, renderY);
+                shotCollision(renderX, renderY, player1.shots[this.i]);
 
                 ctx.fillStyle = 'green';          
                 ctx.fillRect(renderX, renderY, 5, 5);   
-                }                
-            }
-        } 
-
-    shotCollision(renderX, renderY) {
-        if (renderX >= gameArea.width || renderY >= gameArea.height || renderX === 0 || renderY === 0) {
-            player1.shots[this.i].isActiveShot = false;
-            console.log(player1.shots[this.i].isActiveShot) 
-            player1.shots.splice(this.i, 1);  
+            }                
         }
-    }    
+    } 
 }
 
 export default Shot;

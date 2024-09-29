@@ -4,6 +4,7 @@ import { keyState } from "./globalState.js";
 import Character from "./character.js";
 import Shot from './shot.js'
 import renderUI, { renderWeaponBullets, renderPlayerLives } from "./playerUI.js";
+import { checkIfAlive } from "./collisions.js";
 
 //Render UI
 renderUI();
@@ -20,6 +21,8 @@ const ctx = gameArea.getContext('2d');
 //Directions
 let keyDown;
 let keyUp;
+
+let isActiveGame = true;
 
 const clearCanvas = () => {
     ctx.clearRect(0,0, 1000, 1000);
@@ -78,27 +81,29 @@ player2.sayHello();
 
 
 const GameLoop = () => {
-    clearCanvas();
-    player1.playerMove();
-    player1.playerShoot();
-    player1.reload();
-    Shot.updateShotPosition();
-    player1.drawCharacter();
-    player2.drawHitBox();
-/*  player2.playerMove();
-    player2.playerShoot();
-    player2.reload(); */
-    player2.drawCharacter();
-    requestAnimationFrame(GameLoop);
+        clearCanvas();
+        player1.playerMove();
+        player1.playerShoot();
+        player1.reload();
+        Shot.updateShotPosition();
+        player1.drawCharacter();
+    /*     player2.drawHitBox();
+     *//*  player2.playerMove();
+        player2.playerShoot();
+        player2.reload(); */
+        player2.drawCharacter();
+        requestAnimationFrame(GameLoop);
 }
 
 renderWeaponBullets();
 renderPlayerLives();
 GameLoop();
 
+
 export { gameArea };
 export { ctx }; 
 export default clearCanvas;
 export {player1};
+export {player2};
 
 

@@ -77,7 +77,7 @@ class Character {
             renderWeaponBullets();
             setTimeout(() => {
                 keyState.canShoot = true;
-            },500);
+            },200);
         }   
     }
 

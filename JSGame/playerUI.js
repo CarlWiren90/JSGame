@@ -1,9 +1,13 @@
 import './playerUI.css';
-import { player1 } from './main';
+import { gameArea, player1 } from './main';
+import { keyState, player1CurrentLocation } from './globalState';
+import { ctx } from './main';
 
 let UIArea;
 let livesContainer;
-let bulletContainer
+let bulletContainer;
+let reloadText = document.createElement('span');
+
 
 const renderUI = () => {
     //Render UI-area
@@ -39,6 +43,10 @@ const renderUI = () => {
     bulletContainer = document.createElement('div');
     bulletContainer.className = 'bulletContainer';
     ammoContainer.appendChild(bulletContainer);
+
+    //Reload text rendering
+    reloadText.id = 'reloadText';
+
 }
 
 const renderPlayerLives = () => {
@@ -64,6 +72,17 @@ const renderWeaponBullets = () => {
         }
 }
 
+const showReloadingUI = () => {
+    if (keyState.isReloading) {       
+        reloadText.style.position = 'relative';
+        ctx.fillStyle = 'red';
+        ctx.font ='30px Pixelify Sans';
+        ctx.fillText('Reloading!', player1.locationX - 40, player1.locationY - 20);
+/*         console.log('reloaded');
+ */    }
+}
+
 export default renderUI;
 export {renderPlayerLives};
 export {renderWeaponBullets};
+export {showReloadingUI};

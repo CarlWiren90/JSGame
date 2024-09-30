@@ -3,7 +3,7 @@ import "./style.css";
 import { keyState } from "./globalState.js";
 import Character from "./character.js";
 import Shot from './shot.js'
-import renderUI, { renderWeaponBullets, renderPlayerLives } from "./playerUI.js";
+import renderUI, { renderWeaponBullets, renderPlayerLives, showReloadingUI } from "./playerUI.js";
 import { checkIfAlive } from "./collisions.js";
 
 //Render UI
@@ -87,12 +87,13 @@ const GameLoop = () => {
         player1.reload();
         Shot.updateShotPosition();
         player1.drawCharacter();
-    /*     player2.drawHitBox();
-     *//*  player2.playerMove();
+/*      player1.drawHitBox();
+ */     player1.currentPlayer1Position();
+ /*  player2.playerMove();
         player2.playerShoot();
         player2.reload(); */
         player2.drawCharacter();
-        requestAnimationFrame(GameLoop);
+        requestAnimationFrame(GameLoop, showReloadingUI);
 }
 
 renderWeaponBullets();

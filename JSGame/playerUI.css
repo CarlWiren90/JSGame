@@ -79,11 +79,3 @@
     width: 30px;
 }
 
-#reloadText {
-    z-index: 5;
-    font-size: 40px;
-    color: green;
-    position: absolute;
-    top: 250px;
-    left: 250px;
-}

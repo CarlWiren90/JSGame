@@ -3,8 +3,9 @@ import "./style.css";
 import { keyState } from "./globalState.js";
 import Character from "./character.js";
 import Shot from './shot.js'
-import renderUI, { renderWeaponBullets, renderPlayerLives, showReloadingUI } from "./playerUI.js";
+import renderUI, { renderWeaponBullets, renderPlayerLives, renderActiveWeapon } from "./playerUI.js";
 import { checkIfAlive } from "./collisions.js";
+import { weaponGlock44, weaponAK47 } from "../weapons.js";
 
 //Render UI
 renderUI();
@@ -71,32 +72,34 @@ keyUp = document.addEventListener("keyup", (e) => {
 });
 
 
-//Created character
-const player1 = new Character(true, 'Calle', 'Space Marine', 'M1 Garand', 20, 800);
-const player2 = new Character(false, 'Rasmus', 'German', 'Mauser', 825, 50);
+//create weapons
+const glock44 = new weaponGlock44();
+const ak47 = new weaponAK47();
 
-player1.sayHello();
-player2.sayHello();
+//Created characters
+const player1 = new Character(true, 'Calle', 'Space Marine', 20, 800);
+const player2 = new Character(false, 'Rasmus', 'German', 825, 50);
+
 
 
 
 const GameLoop = () => {
-        clearCanvas();
-        player1.playerMove();
-        player1.playerShoot();
-        player1.reload();
-        Shot.updateShotPosition();
-        player1.drawCharacter();
+    clearCanvas();
+    player1.playerMove();
+    player1.playerShoot();
+    player1.reload();
+    Shot.updateShotPosition();
+    player1.drawCharacter();
 /*      player1.drawHitBox();
- */     player1.currentPlayer1Position();
  /*  player2.playerMove();
         player2.playerShoot();
         player2.reload(); */
-        player2.drawCharacter();
-        requestAnimationFrame(GameLoop, showReloadingUI);
+    player2.drawCharacter();
+    requestAnimationFrame(GameLoop);
 }
 
 renderWeaponBullets();
+renderActiveWeapon();
 renderPlayerLives();
 GameLoop();
 
@@ -106,5 +109,5 @@ export { ctx };
 export default clearCanvas;
 export {player1};
 export {player2};
-
+export {glock44};
 

@@ -2,11 +2,13 @@ import './playerUI.css';
 import { gameArea, player1 } from './main';
 import { keyState, player1CurrentLocation } from './globalState';
 import { ctx } from './main';
+import { glock44 } from './main';
 
 let UIArea;
 let livesContainer;
 let bulletContainer;
 let reloadText = document.createElement('span');
+let weaponContainer;
 
 
 const renderUI = () => {
@@ -25,14 +27,11 @@ const renderUI = () => {
     UIArea.appendChild(livesContainer);
 
     //Weapon rendering and container
-    let weaponContainer = document.createElement('div');
+    weaponContainer = document.createElement('div');
     weaponContainer.className = 'weaponContainer';
     weaponContainer.innerHTML = 'Weapon:'
     UIArea.appendChild(weaponContainer);
-    let weaponAK47Image = new Image();
-    weaponAK47Image.src = './AK47.png'
-    weaponAK47Image.id = 'AK47';
-    weaponContainer.appendChild(weaponAK47Image);
+    
 
 
     //Ammunition container rendering
@@ -62,14 +61,29 @@ const renderPlayerLives = () => {
     }
 }
 
+const renderActiveWeapon = () => {
+    if (player1.isGlock22Active) {
+        let glock44Img = new Image();
+        glock44Img.src = glock44.glockImg;
+        weaponContainer.appendChild(glock44Img);
+    }
+    
+/*      let weaponAK47Image = new Image();
+    weaponAK47Image.src = './AK47.png'
+    weaponAK47Image.id = 'AK47';
+    weaponContainer.appendChild(weaponAK47Image);  */
+}
+
 const renderWeaponBullets = () => {
     bulletContainer.innerHTML = '';
-        for (let i = player1.shotCounter ; i != 0 ; i--) {
+    if (player1.isGlock22Active) {
+        for (let i = glock44.currentAmmo ; i != 0 ; i--) {
             let bulletImg = new Image();
             bulletImg.src = './bullet.png';
             bulletImg.id = 'bulletImg';
             bulletContainer.appendChild(bulletImg);
         }
+    }
 }
 
 const showReloadingUI = () => {
@@ -77,12 +91,12 @@ const showReloadingUI = () => {
         reloadText.style.position = 'relative';
         ctx.fillStyle = 'red';
         ctx.font ='30px Pixelify Sans';
-        ctx.fillText('Reloading!', player1.locationX - 40, player1.locationY - 20);
-/*         console.log('reloaded');
- */    }
+        ctx.fillText('Reloading!', player1.locationX - 40, player1.locationY - 10);
+    }
 }
 
 export default renderUI;
 export {renderPlayerLives};
 export {renderWeaponBullets};
 export {showReloadingUI};
+export {renderActiveWeapon};

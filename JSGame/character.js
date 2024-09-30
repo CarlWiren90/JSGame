@@ -6,14 +6,14 @@ import './character.css';
 import Shot from './shot.js';
 import renderUI, { renderWeaponBullets, showReloadingUI } from './playerUI.js';
 import { player1 } from './main.js';
+import {glock44} from './main.js';
 
 
 class Character {
-    constructor (player1, name, race, weapon, startLocationX, startLocationY) {
+    constructor (player1, name, race, startLocationX, startLocationY) {
     this.player1 = player1;
     this.name = name;
     this.race = race;
-    this.weapon = weapon;
     this.locationX = startLocationX;
     this.locationY = startLocationY;
     this.characterWidth = 70;
@@ -25,7 +25,10 @@ class Character {
     this.hitboxWidth = 30;
     this.hitboxHeight = 60;
 
+    //Active weapons
+    this.isGlock22Active = true;
     }
+
     sayHello() {
         console.log(`I'm named ${this.name}. I'm a ${this.race} using a ${this.weapon}`);
     }
@@ -69,37 +72,29 @@ class Character {
 
     playerShoot() {
           if (keyState.shotFired && keyState.canShoot && this.shotCounter > 0) {
-            let shot = new Shot(this.locationX, this.locationY, mouseState.mouseX, mouseState.mouseY, true);
-            shot.calculateShot();
-            this.shots.push(shot);
-            this.shotCounter--;
-            keyState.canShoot = false;
+            if (this.isGlock22Active) {
+                glock44.shootGlock44();
+            }
+
             renderWeaponBullets();
-            setTimeout(() => {
-                keyState.canShoot = true;
-            },500);
         }   
     }
 
     reload() {
         if (keyState.isReloading) {
-            showReloadingUI();
-            this.shotCounter = 30;
-      
-            this.shots = [];
-            Shot.i = 0;
-            console.log('Reloaded!');
-            renderWeaponBullets();
-
+            if (this.isGlock22Active) {
+                showReloadingUI();
+                glock44.currentAmmo = glock44.maxAmmo;
+                this.shots = [];
+                Shot.i = 0;
+                console.log('Reloaded!');
+                renderWeaponBullets();
+            }
+            
             setTimeout(() => {
                 keyState.isReloading = false;      
             }, 1000);
         }
-    }
-
-    currentPlayer1Position() {
-        player1CurrentLocation.currentLocationY = this.locationY;
-        player1CurrentLocation.currentLocationX = this.locationX;
     }
 }
 

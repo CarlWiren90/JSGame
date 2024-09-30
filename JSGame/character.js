@@ -1,11 +1,11 @@
 'use strict';
 import { gameArea } from './main.js';
-import { keyState } from './globalState.js';
-import { mouseState } from './globalState.js';
+import { keyState, mouseState, player1CurrentLocation  } from './globalState.js';
 import { ctx } from './main.js';
 import './character.css';
 import Shot from './shot.js';
-import renderUI, { renderWeaponBullets } from './playerUI.js';
+import renderUI, { renderWeaponBullets, showReloadingUI } from './playerUI.js';
+import { player1 } from './main.js';
 
 
 class Character {
@@ -41,10 +41,10 @@ class Character {
         ctx.drawImage(playerIcon, this.locationX, this.locationY, this.characterWidth, this.characterHeight);
     }
 
-/*     drawHitBox() {
+    drawHitBox() {
         ctx.fillStyle = 'green';
         ctx.fillRect(this.locationX + 15, this.locationY + 5, this.hitboxWidth, this.hitboxHeight);
-    } */
+    }
 
     createPlayerIcon() {
         let playerIcon = document.createElement("img");
@@ -83,19 +83,23 @@ class Character {
 
     reload() {
         if (keyState.isReloading) {
-     /*        let reloadText = document.createElement('div');
-            reloadText.id = 'reloadText';
-            reloadText.innerHTML = 'Reload!';
-            reloadText.style.position ='absolute';
-            reloadText.style.left = this.locationX;
-            reloadText.style.top = this.locationY; */
+            showReloadingUI();
             this.shotCounter = 30;
-            keyState.isReloading = false;
+      
             this.shots = [];
             Shot.i = 0;
             console.log('Reloaded!');
             renderWeaponBullets();
+
+            setTimeout(() => {
+                keyState.isReloading = false;      
+            }, 1000);
         }
+    }
+
+    currentPlayer1Position() {
+        player1CurrentLocation.currentLocationY = this.locationY;
+        player1CurrentLocation.currentLocationX = this.locationX;
     }
 }
 

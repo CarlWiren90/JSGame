@@ -1,8 +1,8 @@
-import './playerUI.css';
-import { gameArea, player1 } from './main';
-import { keyState, player1CurrentLocation } from './globalState';
-import { ctx } from './main';
-import { glock44 } from './main';
+import './playerUIPlayer1.css';
+import { gameArea, player2 } from '../main';
+import { keyState, player2CurrentLocation } from '../State/globalState';
+import { ctx } from '../main';
+import { glock44 } from '../main';
 
 let UIArea;
 let livesContainer;
@@ -11,10 +11,10 @@ let reloadText = document.createElement('span');
 let weaponContainer;
 
 
-const renderUI = () => {
+const renderUIPlayer1 = () => {
     //Render UI-area
     UIArea = document.createElement('div');
-    UIArea.className = 'playerUI';
+    UIArea.className = 'playerUIPlayer1';
     document.body.appendChild(UIArea);
 
     //Render UI-component player lives container
@@ -31,8 +31,6 @@ const renderUI = () => {
     weaponContainer.className = 'weaponContainer';
     weaponContainer.innerHTML = 'Weapon:'
     UIArea.appendChild(weaponContainer);
-    
-
 
     //Ammunition container rendering
     let ammoContainer = document.createElement('div');
@@ -65,6 +63,7 @@ const renderActiveWeapon = () => {
     if (player1.isGlock22Active) {
         let glock44Img = new Image();
         glock44Img.src = glock44.glockImg;
+        glock44Img.id = "glock44";
         weaponContainer.appendChild(glock44Img);
     }
     
@@ -95,7 +94,7 @@ const showReloadingUI = () => {
     }
 }
 
-export default renderUI;
+export default renderUIPlayer1;
 export {renderPlayerLives};
 export {renderWeaponBullets};
 export {showReloadingUI};

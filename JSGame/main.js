@@ -1,16 +1,16 @@
 'use strict';
 import "./style.css";
-import { keyState } from "./globalState.js";
-import Character from "./character.js";
+/* import { keyStatePlayer1, keyStatePlayer2 } from "./State/globalState.js";
+ */import Character from "./character.js";
 import Shot from './shot.js'
-import renderUI, { renderWeaponBullets, renderPlayerLives, renderActiveWeapon } from "./playerUI.js";
-import { checkIfAlive } from "./collisions.js";
-import { weaponGlock44, weaponAK47 } from "../weapons.js";
+import renderUIPlayer1, { renderWeaponBullets, renderPlayerLives, renderActiveWeapon } from "./Player UI/playerUIPlayer1.js";
+import { checkIfAlive } from "./Collisions/collisions.js";
+import { weaponGlock44, weaponAK47 } from "./Weapons/weapons.js";
 
 //Render UI
-renderUI();
+renderUIPlayer1();
 
-//Render game Area
+//Render game Area (Player 1)
 const gameArea = document.createElement("canvas");
 gameArea.id = 'gameArea';
 gameArea.height = 900;
@@ -18,6 +18,14 @@ gameArea.width = 900;
 game.appendChild(gameArea);
 const ctx = gameArea.getContext('2d');
 
+
+//Render game Area (Player2)
+const gameAreaPlayer2 = document.createElement("canvas");
+gameAreaPlayer2.id = 'gameAreaPlayer2';
+gameAreaPlayer2.height = 900;
+gameAreaPlayer2.width = 900;
+game.appendChild(gameAreaPlayer2);
+const ctxPlayer2 = gameAreaPlayer2.getContext('2d');
 
 //Directions
 let keyDown;
@@ -31,23 +39,29 @@ const clearCanvas = () => {
 //Eventlisteners for keydown movement
 keyDown = document.addEventListener("keydown", (e) => {
     if (e.key === 'w') {
-        keyState.wPressed = true;
+        player1.keyState.wPressed = true;
+        player2.keyState.wPressed = true;
     }
     if (e.key === 's') {
-        keyState.sPressed = true;
+        player1.keyState.sPressed = true;
+        player2.keyState.sPressed = true;
     }
     if (e.key === 'a') {
-        keyState.aPressed = true;
+        player1.keyState.aPressed = true;
+        player2.keyState.aPressed = true;
     }
     if (e.key === 'd') {
-        keyState.dPressed = true;
+        player1.keyState.dPressed = true;
+        player2.keyState.dPressed = true;
     }
     if (e.key === ' ') {
-        keyState.shotFired = true;
+        player1.keyState.shotFired = true;
+        player2.keyState.shotFired = true;
     }
     if (e.key === 'r') {
         setTimeout(() => {
-            keyState.isReloading = true;
+            player1.keyState.isReloading = true;
+            player2.keyState.isReloading = true;
         }, 500);
     }
 });  
@@ -55,19 +69,24 @@ keyDown = document.addEventListener("keydown", (e) => {
 
 keyUp = document.addEventListener("keyup", (e) => {
     if (e.key === 'w') {
-        keyState.wPressed = false;
+        player1.keyState.wPressed = false;
+        player2.keyState.wPressed = false;
     }
     if (e.key === 's') {
-        keyState.sPressed = false;
+        player1.keyState.sPressed = false;
+        player2.keyState.sPressed = false;
     }
     if (e.key === 'a') {
-        keyState.aPressed = false;
+        player1.keyState.aPressed = false;
+        player2.keyState.aPressed = false;
     }
     if (e.key === 'd') {
-        keyState.dPressed = false;
+        player1.keyState.dPressed = false;
+        player2.keyState.dPressed = false;
     }
     if (e.key === ' ') {
-        keyState.shotFired = false;
+       player1.keyState.shotFired = false;
+       player2.keyState.shotFired = false;
     }
 });
 
@@ -80,7 +99,11 @@ const ak47 = new weaponAK47();
 const player1 = new Character(true, 'Calle', 'Space Marine', 20, 800);
 const player2 = new Character(false, 'Rasmus', 'German', 825, 50);
 
-
+gameArea.addEventListener('mousemove', (e) => {
+    // Update player1's mouse state with the current mouse position
+    player1.mouseState.mouseX = e.offsetX;
+    player1.mouseState.mouseY = e.offsetY;
+});
 
 
 const GameLoop = () => {
@@ -90,10 +113,9 @@ const GameLoop = () => {
     player1.reload();
     Shot.updateShotPosition();
     player1.drawCharacter();
-/*      player1.drawHitBox();
- /*  player2.playerMove();
-        player2.playerShoot();
-        player2.reload(); */
+    /* player2.playerMove(); */
+    player2.playerShoot();
+    player2.reload();
     player2.drawCharacter();
     requestAnimationFrame(GameLoop);
 }

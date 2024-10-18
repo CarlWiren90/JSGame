@@ -1,5 +1,5 @@
-import { player1, player2 } from "./main.js";
-import Shot from "./shot";
+import { player1, player2 } from "../main.js";
+import Shot from "../shot.js";
 
 
 const shotCollision = (renderX, renderY, shot) => {

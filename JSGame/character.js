@@ -1,10 +1,10 @@
 'use strict';
 import { gameArea } from './main.js';
-import { keyState, mouseState, player1CurrentLocation  } from './globalState.js';
-import { ctx } from './main.js';
+/* import { keyStatePlayer1, mouseStatePlayer1, player1CurrentLocation  } from './State/globalState.js';
+ */import { ctx } from './main.js';
 import './character.css';
 import Shot from './shot.js';
-import renderUI, { renderWeaponBullets, showReloadingUI } from './playerUI.js';
+import renderUIPlayer1, { renderWeaponBullets, showReloadingUI } from './Player UI/playerUIPlayer1.js';
 import { player1 } from './main.js';
 import {glock44} from './main.js';
 
@@ -29,6 +29,27 @@ class Character {
     this.isGlock22Active = true;
     }
 
+    keyState = {
+        wPressed: false,
+        sPressed: false,
+        aPressed: false,
+        dPressed: false,
+        shotFired: false,
+        isReloading: false,
+        canShoot: true,
+        canReload: true,
+    };
+
+    mouseState = {
+        mouseY: 0,
+        mouseX: 0,
+    };
+
+    player1CurrentLocation =  {
+        currentLocationY: 0,
+        currentLocationX: 0,
+    };
+ 
     sayHello() {
         console.log(`I'm named ${this.name}. I'm a ${this.race} using a ${this.weapon}`);
     }
@@ -56,32 +77,34 @@ class Character {
     }
 
     playerMove() {
-        if (keyState.wPressed && this.locationY > 1) {
+        if (this.keyState.wPressed && this.locationY > 1) {
             this.locationY -= 5;
         }
-        if (keyState.sPressed && this.locationY + this.characterHeight < gameArea.height) {
+        if (this.keyState.sPressed && this.locationY + this.characterHeight < gameArea.height) {
             this.locationY += 5;
         }
-        if (keyState.aPressed && this.locationX > 0 ) {
+        if (this.keyState.aPressed && this.locationX > 0 ) {
             this.locationX -= 5;
         }
-        if (keyState.dPressed && this.locationX + this.characterWidth < gameArea.width) {
+        if (this.keyState.dPressed && this.locationX + this.characterWidth < gameArea.width) {
             this.locationX += 5;   
         }
     }
 
     playerShoot() {
-          if (keyState.shotFired && keyState.canShoot && this.shotCounter > 0) {
-            if (this.isGlock22Active) {
-                glock44.shootGlock44();
-            }
+        if (player1) {
+            if (this.keyState.shotFired && this.keyState.canShoot && this.shotCounter > 0) {
+                if (this.isGlock22Active) {
+                    glock44.shootGlock44(player1);
+                }
+                renderWeaponBullets();
+            }   
+        }
 
-            renderWeaponBullets();
-        }   
     }
 
     reload() {
-        if (keyState.isReloading) {
+        if (this.keyState.isReloading) {
             if (this.isGlock22Active) {
                 showReloadingUI();
                 glock44.currentAmmo = glock44.maxAmmo;
@@ -92,7 +115,7 @@ class Character {
             }
             
             setTimeout(() => {
-                keyState.isReloading = false;      
+                this.keyState.isReloading = false;      
             }, 1000);
         }
     }

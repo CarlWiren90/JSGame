@@ -15,10 +15,19 @@ body {
   padding: 0;
   margin: 0;
   display: flex;
-  flex-direction: column-reverse;
+  /* flex-direction: column-reverse; */
 }
 
 #gameArea {
+  background-color: wheat;
+  height: 900px;
+  width: 900px;
+  border: 4px black solid;
+  position: relative;
+  z-index: 0;
+}
+
+#gameAreaPlayer2 {
   background-color: wheat;
   height: 900px;
   width: 900px;

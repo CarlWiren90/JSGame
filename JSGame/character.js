@@ -5,7 +5,8 @@ import { gameArea } from './main.js';
 import './character.css';
 import Shot from './shot.js';
 import renderUIPlayer1, { renderWeaponBullets, showReloadingUI } from './Player UI/playerUIPlayer1.js';
-import { player1 } from './main.js';
+import renderUIPlayer2, { renderWeaponBulletsPlayer2, showReloadingUIPlayer2 } from './Player UI/playerUIPlayer2.js';
+import { player1, player2 } from './main.js';
 import {glock44} from './main.js';
 
 
@@ -45,7 +46,7 @@ class Character {
         mouseX: 0,
     };
 
-    player1CurrentLocation =  {
+    playerCurrentLocation =  {
         currentLocationY: 0,
         currentLocationX: 0,
     };
@@ -92,7 +93,7 @@ class Character {
     }
 
     playerShoot() {
-        if (player1) {
+        if (this.player1) {
             if (this.keyState.shotFired && this.keyState.canShoot && this.shotCounter > 0) {
                 if (this.isGlock22Active) {
                     glock44.shootGlock44(player1);
@@ -100,24 +101,49 @@ class Character {
                 renderWeaponBullets();
             }   
         }
+        if (!this.player1) {
+            if (this.keyState.shotFired && this.keyState.canShoot && this.shotCounter > 0) {
+                if (this.isGlock22Active) {
+                    glock44.shootGlock44(!player1);
+                }
+                renderWeaponBulletsPlayer2();
+            }   
+        }
 
     }
 
     reload() {
-        if (this.keyState.isReloading) {
-            if (this.isGlock22Active) {
-                showReloadingUI();
-                glock44.currentAmmo = glock44.maxAmmo;
-                this.shots = [];
-                Shot.i = 0;
-                console.log('Reloaded!');
-                renderWeaponBullets();
+        if (this.player1) {
+            if (this.keyState.isReloading) {
+                if (this.isGlock22Active) {
+                    showReloadingUI();
+                    glock44.currentAmmo = glock44.maxAmmo;
+                    this.shots = [];
+                    Shot.i = 0;
+                    renderWeaponBullets();
+                }
+                
+                setTimeout(() => {
+                    this.keyState.isReloading = false;      
+                }, 1000);
             }
-            
-            setTimeout(() => {
-                this.keyState.isReloading = false;      
-            }, 1000);
         }
+        if (!this.player1) {
+            if (this.keyState.isReloading) {
+                if (this.isGlock22Active) {
+                    showReloadingUIPlayer2();
+                    glock44.currentAmmo = glock44.maxAmmo;
+                    this.shots = [];
+                    Shot.i = 0;
+                    renderWeaponBulletsPlayer2();
+                }
+                
+                setTimeout(() => {
+                    this.keyState.isReloading = false;      
+                }, 1000);
+            }
+        }
+  
     }
 }
 

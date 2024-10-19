@@ -10,6 +10,8 @@ let bulletContainer;
 let reloadText = document.createElement('span');
 let weaponContainer;
 
+let heartContainer = document.createElement('div');
+heartContainer.className = 'heartContainer';
 
 const renderUIPlayer1 = () => {
     //Render UI-area
@@ -47,13 +49,11 @@ const renderUIPlayer1 = () => {
 }
 
 const renderPlayerLives = () => {
-    
+    heartContainer.innerHTML = '';
     for (let i = 1 ; i <= player1.playerLives ; i++) {
         let heartImage = new Image();
         heartImage.src = './heart.png';
         heartImage.id = 'heartImage';
-        let heartContainer = document.createElement('div');
-        heartContainer.className = 'heartContainer';
         livesContainer.appendChild(heartContainer);
         heartContainer.appendChild(heartImage);
     }

@@ -1,42 +1,43 @@
-import './playerUIPlayer1.css';
-import { gameArea, player2 } from '../main';
-import { keyState, player2CurrentLocation } from '../State/globalState';
-import { ctx } from '../main';
+import './playerUIPlayer2.css';
+import { gameArea, /* gameAreaPlayer2, */ player2 } from '../main';
+/* import { keyState, player2CurrentLocation } from '../State/globalState';
+ */import { ctx } from '../main';
 import { glock44 } from '../main';
 
-let UIArea;
+let UIAreaPlayer2;
 let livesContainer;
 let bulletContainer;
 let reloadText = document.createElement('span');
 let weaponContainer;
+let heartContainer = document.createElement('div');
+heartContainer.className = 'heartContainer';  
 
-
-const renderUIPlayer1 = () => {
+const renderUIPlayer2 = () => {
     //Render UI-area
-    UIArea = document.createElement('div');
-    UIArea.className = 'playerUIPlayer1';
-    document.body.appendChild(UIArea);
+    UIAreaPlayer2 = document.createElement('div');
+    UIAreaPlayer2.className = 'playerUIPlayer2';
+    document.body.appendChild(UIAreaPlayer2);
 
     //Render UI-component player lives container
-    let player1Lives = document.createElement('div');
-    player1Lives.className = 'player1Lives';
-    UIArea.appendChild(player1Lives);
-    player1Lives.innerHTML = 'Player 1 lives:'
+    let player2Lives = document.createElement('div');
+    player2Lives.className = 'player2Lives';
+    UIAreaPlayer2.appendChild(player2Lives);
+    player2Lives.innerHTML = 'Player 2 lives:'
     livesContainer = document.createElement('div');
     livesContainer.className = 'livesContainer';
-    UIArea.appendChild(livesContainer);
+    UIAreaPlayer2.appendChild(livesContainer);
 
     //Weapon rendering and container
     weaponContainer = document.createElement('div');
     weaponContainer.className = 'weaponContainer';
     weaponContainer.innerHTML = 'Weapon:'
-    UIArea.appendChild(weaponContainer);
+    UIAreaPlayer2.appendChild(weaponContainer);
 
     //Ammunition container rendering
     let ammoContainer = document.createElement('div');
     ammoContainer.className = 'ammoContainer';
     ammoContainer.innerHTML = 'Ammo:'
-    UIArea.appendChild(ammoContainer);
+    UIAreaPlayer2.appendChild(ammoContainer);
     bulletContainer = document.createElement('div');
     bulletContainer.className = 'bulletContainer';
     ammoContainer.appendChild(bulletContainer);
@@ -46,36 +47,35 @@ const renderUIPlayer1 = () => {
 
 }
 
-const renderPlayerLives = () => {
-    
-    for (let i = 1 ; i <= player1.playerLives ; i++) {
+const renderPlayerLivesPlayer2 = () => { 
+    heartContainer.innerHTML = '';
+    for (let i = 1 ; i <= player2.playerLives ; i++) {
         let heartImage = new Image();
         heartImage.src = './heart.png';
         heartImage.id = 'heartImage';
-        let heartContainer = document.createElement('div');
-        heartContainer.className = 'heartContainer';
         livesContainer.appendChild(heartContainer);
         heartContainer.appendChild(heartImage);
     }
 }
 
-const renderActiveWeapon = () => {
-    if (player1.isGlock22Active) {
+const renderActiveWeaponPlayer2 = () => {
+    if (player2.isGlock22Active) {
         let glock44Img = new Image();
         glock44Img.src = glock44.glockImg;
         glock44Img.id = "glock44";
         weaponContainer.appendChild(glock44Img);
     }
-    
+
+       
 /*      let weaponAK47Image = new Image();
     weaponAK47Image.src = './AK47.png'
     weaponAK47Image.id = 'AK47';
     weaponContainer.appendChild(weaponAK47Image);  */
 }
 
-const renderWeaponBullets = () => {
+const renderWeaponBulletsPlayer2 = () => {
     bulletContainer.innerHTML = '';
-    if (player1.isGlock22Active) {
+    if (player2.isGlock22Active) {
         for (let i = glock44.currentAmmo ; i != 0 ; i--) {
             let bulletImg = new Image();
             bulletImg.src = './bullet.png';
@@ -85,17 +85,17 @@ const renderWeaponBullets = () => {
     }
 }
 
-const showReloadingUI = () => {
-    if (keyState.isReloading) {       
+const showReloadingUIPlayer2 = () => {
+    if (player2.keyState.isReloading) {       
         reloadText.style.position = 'relative';
         ctx.fillStyle = 'red';
         ctx.font ='30px Pixelify Sans';
-        ctx.fillText('Reloading!', player1.locationX - 40, player1.locationY - 10);
+        ctx.fillText('Reloading!', player2.locationX - 40, player2.locationY - 10);
     }
 }
 
-export default renderUIPlayer1;
-export {renderPlayerLives};
-export {renderWeaponBullets};
-export {showReloadingUI};
-export {renderActiveWeapon};
+export default renderUIPlayer2;
+export {renderPlayerLivesPlayer2};
+export {renderWeaponBulletsPlayer2};
+export {showReloadingUIPlayer2};
+export {renderActiveWeaponPlayer2};

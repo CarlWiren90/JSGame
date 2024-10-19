@@ -1,4 +1,4 @@
-import { player1 } from "./main";
+import { player1, player2 } from "./main";
 import { ctx } from "./main";
 import { shotCollision } from './Collisions/collisions.js';
 
@@ -29,7 +29,7 @@ class Shot {
         this.directionY = deltaY / distance;
     }
 
-    static updateShotPosition() { 
+    static updateShotPositionPlayer1() { 
         for (this.i = 0; this.i < player1.shots.length; this.i++) {
             if (player1.shots[this.i].isActiveShot) {
                 // Scale by shot speed to get movement per frame
@@ -46,7 +46,30 @@ class Shot {
           
                 shotCollision(renderX, renderY, player1.shots[this.i]);
 
-                ctx.fillStyle = 'green';          
+                ctx.fillStyle = 'black';          
+                ctx.fillRect(renderX, renderY, 5, 5);   
+            }                
+        }
+    } 
+
+    static updateShotPositionPlayer2() { 
+        for (this.i = 0; this.i < player2.shots.length; this.i++) {
+            if (player2.shots[this.i].isActiveShot) {
+                // Scale by shot speed to get movement per frame
+                let moveX = player2.shots[this.i].directionX * player2.shots[this.i].shotSpeed;
+                let moveY = player2.shots[this.i].directionY * player2.shots[this.i].shotSpeed;
+        
+                // Update the shot's position
+                player2.shots[this.i].startX += moveX;
+                player2.shots[this.i].startY += moveY;  
+            
+                //Round float before render
+                let renderX = Math.round(player2.shots[this.i].startX);
+                let renderY = Math.round(player2.shots[this.i].startY);
+          
+                shotCollision(renderX, renderY, player2.shots[this.i]);
+
+                ctx.fillStyle = 'black';          
                 ctx.fillRect(renderX, renderY, 5, 5);   
             }                
         }

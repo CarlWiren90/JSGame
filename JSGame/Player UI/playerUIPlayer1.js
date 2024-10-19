@@ -52,7 +52,7 @@ const renderPlayerLives = () => {
     heartContainer.innerHTML = '';
     for (let i = 1 ; i <= player1.playerLives ; i++) {
         let heartImage = new Image();
-        heartImage.src = './heart.png';
+        heartImage.src = './Players Icons/heart.png';
         heartImage.id = 'heartImage';
         livesContainer.appendChild(heartContainer);
         heartContainer.appendChild(heartImage);
@@ -78,7 +78,7 @@ const renderWeaponBullets = () => {
     if (player1.isGlock22Active) {
         for (let i = glock44.currentAmmo ; i != 0 ; i--) {
             let bulletImg = new Image();
-            bulletImg.src = './bullet.png';
+            bulletImg.src = './Weapons Icons/bullet.png';
             bulletImg.id = 'bulletImg';
             bulletContainer.appendChild(bulletImg);
         }

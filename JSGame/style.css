@@ -8,6 +8,8 @@ body {
   height: 100vh;
   width: 100vw;
   background-color: black;
+/*   position: relative;
+  z-index: -5; */
 
 }
 
@@ -19,22 +21,32 @@ body {
 }
 
 #gameArea {
-  background-color: wheat;
-  height: 900px;
+/*   background-color: transparent;
+ */  height: 900px;
   width: 900px;
   border: 4px black solid;
   position: relative;
-  z-index: 0;
+  z-index: 1;
 }
 
-#gameAreaPlayer2 {
+#mapArea {
+  /*   background-color: transparent;
+   */  height: 900px;
+    width: 900px;
+    position: absolute;
+    z-index: 0;
+    border: 4px black solid;
+
+  }
+
+/* #gameAreaPlayer2 {
   background-color: wheat;
   height: 900px;
   width: 900px;
   border: 4px black solid;
   position: relative;
   z-index: 0;
-}
+} */
 
 #gameArea:hover {
   cursor: url(https://cur.cursors-4u.net/symbols/sym-6/sym580.cur), auto !important;} /* End https://www.cursors-4u.com */

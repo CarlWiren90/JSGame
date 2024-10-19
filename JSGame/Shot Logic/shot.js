@@ -1,6 +1,6 @@
-import { player1, player2 } from "./main";
-import { ctx } from "./main";
-import { shotCollision } from './Collisions/collisions.js';
+import { player1, player2 } from "../main.js";
+import { ctx } from "../main.js";
+import { shotCollision } from '../Collisions/collisions.js';
 
 
 class Shot {

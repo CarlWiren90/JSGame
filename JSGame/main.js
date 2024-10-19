@@ -1,11 +1,11 @@
 'use strict';
 import "./style.css";
-/* import { keyStatePlayer1, keyStatePlayer2 } from "./State/globalState.js";
- */import Character from "./character.js";
-import Shot from './shot.js'
+import Character from "./Character/character.js";
+import Shot from './Shot Logic/shot.js'
 import renderUIPlayer1, { renderWeaponBullets, renderPlayerLives, renderActiveWeapon } from "./Player UI/playerUIPlayer1.js";
 import { weaponGlock44, weaponAK47 } from "./Weapons/weapons.js";
 import renderUIPlayer2, { renderWeaponBulletsPlayer2, renderPlayerLivesPlayer2, renderActiveWeaponPlayer2 } from "./Player UI/playerUIPlayer2.js";
+import { RenderMap } from "./Maps/maps.js";
 
 //Render UI
 renderUIPlayer1();
@@ -18,6 +18,13 @@ gameArea.height = 900;
 gameArea.width = 900;
 game.appendChild(gameArea);
 const ctx = gameArea.getContext('2d');
+
+const mapArea = document.createElement("canvas");
+mapArea.id = "mapArea";
+mapArea.height = 900;
+mapArea.width = 900;
+game.appendChild(mapArea);
+const ctxMap = mapArea.getContext('2d');
 
 
 //Render game Area (Player2)
@@ -39,19 +46,19 @@ const clearCanvas = () => {
 }
 //Eventlisteners for keydown movement
 keyDown = document.addEventListener("keydown", (e) => {
-    if (e.key === 'w') {
+    if (e.key === 'w' || e.key === 'W'  ) {
         player1.keyState.wPressed = true;
         player2.keyState.wPressed = true;
     }
-    if (e.key === 's') {
+    if (e.key === 's' || e.key === 'S') {
         player1.keyState.sPressed = true;
         player2.keyState.sPressed = true;
     }
-    if (e.key === 'a') {
+    if (e.key === 'a' || e.key === 'A') {
         player1.keyState.aPressed = true;
         player2.keyState.aPressed = true;
     }
-    if (e.key === 'd') {
+    if (e.key === 'd' || e.key === 'D') {
         player1.keyState.dPressed = true;
         player2.keyState.dPressed = true;
     }
@@ -69,19 +76,19 @@ keyDown = document.addEventListener("keydown", (e) => {
 
 
 keyUp = document.addEventListener("keyup", (e) => {
-    if (e.key === 'w') {
+    if (e.key === 'w' || e.key === 'W') {
         player1.keyState.wPressed = false;
         player2.keyState.wPressed = false;
     }
-    if (e.key === 's') {
+    if (e.key === 's' || e.key === 'S') {
         player1.keyState.sPressed = false;
         player2.keyState.sPressed = false;
     }
-    if (e.key === 'a') {
+    if (e.key === 'a' || e.key === 'A') {
         player1.keyState.aPressed = false;
         player2.keyState.aPressed = false;
     }
-    if (e.key === 'd') {
+    if (e.key === 'd' || e.key === 'D') {
         player1.keyState.dPressed = false;
         player2.keyState.dPressed = false;
     }
@@ -132,6 +139,10 @@ renderWeaponBulletsPlayer2();
 renderActiveWeaponPlayer2();
 renderPlayerLivesPlayer2();
 
+
+//Renders chosen map
+RenderMap();
+
 //Starts gameloop
 GameLoop();
 
@@ -139,8 +150,10 @@ GameLoop();
 
 
 
-export { gameArea, /* gameAreaPlayer2 */ };
-export { ctx, /* ctxPlayer2 */ }; 
+
+
+export { gameArea};
+export { ctx, ctxMap}; 
 export default clearCanvas;
 export {player1};
 export {player2};

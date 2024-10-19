@@ -1,8 +1,8 @@
 import { player1, player2 } from "../main.js";
 import { renderPlayerLives } from "../Player UI/playerUIPlayer1.js";
 import { renderPlayerLivesPlayer2 } from "../Player UI/playerUIPlayer2.js";
-import Shot from "../shot.js";
-
+/* import Shot from "../Shot Logic/Shot.js";
+ */
 
 const shotCollision = (renderX, renderY, shot) => {
     //Player 2 is hit algo.

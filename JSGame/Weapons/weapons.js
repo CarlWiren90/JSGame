@@ -1,7 +1,7 @@
 
 import './weapons.css';
 /* import { keyStatePlayer2, mouseStatePlayer1 } from './JSGame/State/globalState';
- */import Shot from '../shot';
+ */import Shot from '../Shot Logic/shot';
 import { player1, player2 } from '../main';
 
 class weaponGlock44 {
@@ -10,7 +10,7 @@ class weaponGlock44 {
         this.fireRate = 500;
         this.maxAmmo = 12;
         this.currentAmmo = 12;
-        this.glockImg = './Glock.png'
+        this.glockImg = './Weapons Icons/Glock.png'
     }
     
     shootGlock44(player1IsShooting) {
@@ -49,7 +49,7 @@ class weaponAK47 {
         this.name = 'AK-47';
         this.fireRate = 150;
         this.maxAmmo = 30;
-        this.ak47Img = './AK47.png'
+        this.ak47Img = './Weapons Icons/AK47.png'
     }   
 }
 

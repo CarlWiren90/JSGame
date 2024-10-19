@@ -1,13 +1,12 @@
 'use strict';
-import { gameArea } from './main.js';
-/* import { keyStatePlayer1, mouseStatePlayer1, player1CurrentLocation  } from './State/globalState.js';
- */import { ctx } from './main.js';
+import { gameArea } from '../main.js';
+import { ctx } from '../main.js';
 import './character.css';
-import Shot from './shot.js';
-import renderUIPlayer1, { renderWeaponBullets, showReloadingUI } from './Player UI/playerUIPlayer1.js';
-import renderUIPlayer2, { renderWeaponBulletsPlayer2, showReloadingUIPlayer2 } from './Player UI/playerUIPlayer2.js';
-import { player1, player2 } from './main.js';
-import {glock44} from './main.js';
+import Shot from '../Shot Logic/shot.js';
+import renderUIPlayer1, { renderWeaponBullets, showReloadingUI } from '../Player UI/playerUIPlayer1.js';
+import renderUIPlayer2, { renderWeaponBulletsPlayer2, showReloadingUIPlayer2 } from '../Player UI/playerUIPlayer2.js';
+import { player1, player2 } from '../main.js';
+import {glock44} from '../main.js';
 
 
 class Character {
@@ -58,10 +57,10 @@ class Character {
     drawCharacter() {
         let playerIcon = new Image();
         if (this.player1) {
-            playerIcon.src = "./player1.png";
+            playerIcon.src = "./Players Icons/player1.png";
         }
         else {
-            playerIcon.src = "./player2.png";
+            playerIcon.src = "./Players Icons/player2.png";
         }
         ctx.drawImage(playerIcon, this.locationX, this.locationY, this.characterWidth, this.characterHeight);
     }
@@ -71,11 +70,11 @@ class Character {
         ctx.fillRect(this.locationX + 15, this.locationY + 5, this.hitboxWidth, this.hitboxHeight);
     }
 
-    createPlayerIcon() {
+/*     createPlayerIcon() {
         let playerIcon = document.createElement("img");
         playerIcon.id = 'playerIcon';
         game.appendChild(playerIcon);
-    }
+    } */
 
     playerMove() {
         if (this.keyState.wPressed && this.locationY > 1) {

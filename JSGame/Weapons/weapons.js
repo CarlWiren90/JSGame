@@ -27,7 +27,19 @@ class weaponGlock44 {
                 },this.fireRate);
             }
         }
- 
+        if (!player1IsShooting) {
+            if (this.currentAmmo != 0) {
+                let shot = new Shot(player2.locationX, player2.locationY, player2.mouseState.mouseX, player2.mouseState.mouseY, true);
+                shot.calculateShot();
+                player2.shots.push(shot);
+                this.currentAmmo--;
+                player2.keyState.canShoot = false;
+    
+                setTimeout(() => {
+                    player2.keyState.canShoot = true;
+                },this.fireRate);
+            }
+        }
     }
 }
 

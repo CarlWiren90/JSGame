@@ -4,11 +4,12 @@ import "./style.css";
  */import Character from "./character.js";
 import Shot from './shot.js'
 import renderUIPlayer1, { renderWeaponBullets, renderPlayerLives, renderActiveWeapon } from "./Player UI/playerUIPlayer1.js";
-import { checkIfAlive } from "./Collisions/collisions.js";
 import { weaponGlock44, weaponAK47 } from "./Weapons/weapons.js";
+import renderUIPlayer2, { renderWeaponBulletsPlayer2, renderPlayerLivesPlayer2, renderActiveWeaponPlayer2 } from "./Player UI/playerUIPlayer2.js";
 
 //Render UI
 renderUIPlayer1();
+renderUIPlayer2();
 
 //Render game Area (Player 1)
 const gameArea = document.createElement("canvas");
@@ -20,13 +21,13 @@ const ctx = gameArea.getContext('2d');
 
 
 //Render game Area (Player2)
-const gameAreaPlayer2 = document.createElement("canvas");
+/* const gameAreaPlayer2 = document.createElement("canvas");
 gameAreaPlayer2.id = 'gameAreaPlayer2';
 gameAreaPlayer2.height = 900;
 gameAreaPlayer2.width = 900;
 game.appendChild(gameAreaPlayer2);
 const ctxPlayer2 = gameAreaPlayer2.getContext('2d');
-
+ */
 //Directions
 let keyDown;
 let keyUp;
@@ -101,33 +102,45 @@ const player2 = new Character(false, 'Rasmus', 'German', 825, 50);
 
 gameArea.addEventListener('mousemove', (e) => {
     // Update player1's mouse state with the current mouse position
-    player1.mouseState.mouseX = e.offsetX;
-    player1.mouseState.mouseY = e.offsetY;
+    player2.mouseState.mouseX = e.offsetX;
+    player2.mouseState.mouseY = e.offsetY;
 });
 
 
 const GameLoop = () => {
     clearCanvas();
-    player1.playerMove();
+/*     player1.playerMove();
     player1.playerShoot();
-    player1.reload();
-    Shot.updateShotPosition();
+    player1.reload(); */
+    Shot.updateShotPositionPlayer1();
+    Shot.updateShotPositionPlayer2();
     player1.drawCharacter();
-    /* player2.playerMove(); */
+    player2.playerMove();
     player2.playerShoot();
     player2.reload();
     player2.drawCharacter();
     requestAnimationFrame(GameLoop);
 }
 
+//First UI render for Player 1 at entry
 renderWeaponBullets();
 renderActiveWeapon();
 renderPlayerLives();
+
+//First UI render for Player 2 at entry
+renderWeaponBulletsPlayer2();
+renderActiveWeaponPlayer2();
+renderPlayerLivesPlayer2();
+
+//Starts gameloop
 GameLoop();
 
 
-export { gameArea };
-export { ctx }; 
+
+
+
+export { gameArea, /* gameAreaPlayer2 */ };
+export { ctx, /* ctxPlayer2 */ }; 
 export default clearCanvas;
 export {player1};
 export {player2};
